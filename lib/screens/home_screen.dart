@@ -5,7 +5,7 @@ import 'package:notion_like_app/models/category.dart';
 import 'package:notion_like_app/providers/task_provider.dart';
 import 'package:notion_like_app/providers/category_provider.dart';
 import 'package:notion_like_app/providers/theme_provider.dart';
-import 'package:notion_like_app/screens/statistics_screen.dart'; // Add this import
+import 'package:notion_like_app/screens/statistics_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'stats') {
-                // Navigate to statistics screen
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const StatisticsScreen()));
               }
             },
@@ -208,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text('Category: ${category.name}'),
                               Text('Priority: ${task.priority == 0 ? 'Low' : task.priority == 1 ? 'Medium' : 'High'}'),
                               if (task.dueDate != null)
-                                Text('Due: ${task.dueDate!.toLocal().toString().split(' ')[0]}'),
+                                Text('Due: ${task.dueDate?.toLocal().toString().split(' ')[0]}'),
                             ],
                           ),
                           trailing: Row(
@@ -301,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListTile(
                   title: Text(selectedDueDate == null
                       ? 'Select Due Date'
-                      : 'Due Date: ${selectedDueDate.toLocal().toString().split(' ')[0]}'),
+                      : 'Due Date: ${selectedDueDate?.toLocal().toString().split(' ')[0]}'),
                   trailing: const Icon(Icons.calendar_today),
                   onTap: () async {
                     final DateTime? picked = await showDatePicker(
@@ -404,7 +403,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         );
-      },\n    );
+      },
+    );
   }
 }
 
